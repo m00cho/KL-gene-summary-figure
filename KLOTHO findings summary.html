@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>KL Gene — hg19 Annotated CpG Findings</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:white; font-family:sans-serif; padding:20px; }
+  h2 { text-align:center; font-size:15px; color:#1e293b; margin-bottom:3px; }
+  p.sub { text-align:center; font-size:10px; color:#64748b; margin-bottom:10px; }
+  .scroll-wrap { overflow-x:auto; width:100%; }
+  svg { display:block; overflow:visible; }
+  .legend { display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-top:12px; }
+  .legend-item { display:flex; align-items:center; gap:5px; font-size:11px; color:#334155; }
+  .legend-dot { width:11px; height:11px; border-radius:50%; flex-shrink:0; }
+  .btn { display:block; margin:14px auto 0; padding:7px 22px; background:#3b82f6; color:#fff; border:none; border-radius:6px; font-size:13px; cursor:pointer; }
+  .btn:hover { background:#2563eb; }
+  .tooltip { position:fixed; pointer-events:none; background:#0f172a; color:#f1f5f9; border:1px solid #475569; border-radius:5px; padding:6px 10px; font-size:11px; line-height:1.7; display:none; z-index:999; }
+</style>
+</head>
+<body>
+<h2>KL Gene — chr13 (GRCh37/hg19) · Annotated CpG Findings</h2>
+<p class="sub" id="coordLabel"></p>
+<div class="tooltip" id="tt"></div>
+<div class="scroll-wrap"><svg id="fig"></svg></div>
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#4ade80"></div>Exercise effect</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f9a8d4"></div>Mediation effect</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d1d5db;border:1px solid #94a3b8"></div>Prediction</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#93c5fd"></div>Moderation</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>CpG Island</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f97316"></div>Promoter / Exon 1</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div>Exon</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#94a3b8"></div>Other CpG site</div>
+</div>
+<button class="btn" onclick="saveSVG()">⬇ Download as SVG</button>
+
+<script>
+const OFFSET = 572200;
+const lift = p => p + OFFSET;
+
+const findings = {
+  cg14145477:["exercise","prediction"],
+  cg14172562:["exercise","prediction"],
+  cg23584087:["exercise"],
+  cg09886946:["mediation"],
+  cg20672059:["prediction"],
+  cg19154940:["prediction","moderation"],
+  cg11091909:["prediction","moderation"],
+  cg02796545:["prediction"],
+  cg01463226:["prediction"],
+  cg17806623:["moderation"],
+  cg01308409:["moderation"],
+  cg12162530:["moderation"],
+  cg13415069:["moderation"],
+};
+const FC = {exercise:"#4ade80",mediation:"#f9a8d4",prediction:"#d1d5db",moderation:"#93c5fd"};
+const FL = {exercise:"Exercise effect",mediation:"Mediation effect",prediction:"Prediction",moderation:"Moderation"};
+
+const allSites = [
+  {id:"cg05132118", pos:lift(33005500)},
+  {id:"cg18056695", pos:lift(33018600)},
+  {id:"cg23943268", pos:lift(33018700)},
+  {id:"cg03429431", pos:lift(33018800)},
+  {id:"cg03667047", pos:lift(33018900)},
+  {id:"cg17806623", pos:lift(33019000)},
+  {id:"cg14172562", pos:lift(33019100)},
+  {id:"cg09886946", pos:lift(33019200)},
+  {id:"cg05855588", pos:lift(33019300)},
+  {id:"cg17106222", pos:lift(33019400)},
+  {id:"cg25698998", pos:lift(33019500)},
+  {id:"cg02796545", pos:lift(33019600)},
+  {id:"cg14145477", pos:lift(33019700)},
+  {id:"cg05116906", pos:lift(33019800)},
+  {id:"cg02441765", pos:lift(33019900)},
+  {id:"cg23282559", pos:lift(33020000)},
+  {id:"cg12162530", pos:lift(33020100)},
+  {id:"cg01308409", pos:lift(33020200)},
+  {id:"cg25223823", pos:lift(33020300)},
+  {id:"cg20672059", pos:lift(33020400)},
+  {id:"cg09493701", pos:lift(33023000)},
+  {id:"cg02706658", pos:lift(33033000)},
+  {id:"cg00129557", pos:lift(33034500)},
+  {id:"cg25519292", pos:lift(33043000)},
+  {id:"cg23584087", pos:lift(33047000)},
+  {id:"cg19154940", pos:lift(33054500)},
+  {id:"cg26325430", pos:lift(33058000)},
+  {id:"cg13415069", pos:lift(33059000)},
+  {id:"cg09634936", pos:lift(33059500)},
+  {id:"cg11091909", pos:lift(33060000)},
+  {id:"cg01463226", pos:lift(33060500)},
+  {id:"cg08416394", pos:lift(33061000)},
+  {id:"cg19860320", pos:lift(33061500)},
+  {id:"cg11413498", pos:lift(33063000)},
+  {id:"cg00069969", pos:lift(33064500)},
+  {id:"cg15206000", pos:lift(33065000)},
+  {id:"cg00752249", pos:lift(33082000)},
+];
+
+// ── dimensions ──────────────────────────────────────
+const SVG_W = 1800, ML = 70, MR = 40, DRAW_W = SVG_W - ML - MR;
+const GEN_START = lift(33003000), GEN_END = lift(33084000), GEN_RANGE = GEN_END - GEN_START;
+
+// overview gene row
+const OV_Y = 100, OV_TOP = 20, OV_BOT = 148;
+function ovX(p){ return ML + (p-GEN_START)/GEN_RANGE*DRAW_W; }
+
+// zoom panel 1 — promoter
+const Z1_START = lift(33017500), Z1_END = lift(33021200);
+const ZP_PAD = 40;
+function zpX1(p){ return ML + ZP_PAD + (p-Z1_START)/(Z1_END-Z1_START)*(DRAW_W-ZP_PAD*2); }
+
+const ZP1_TOP = 168, ZP1_BOT = 470, ZP1_Y = 230, ZP1_CY = 345;
+
+// zoom panel 2 — 3-prime dense region
+const Z2_START = lift(33053500), Z2_END = lift(33066000);
+function zpX2(p){ return ML + ZP_PAD + (p-Z2_START)/(Z2_END-Z2_START)*(DRAW_W-ZP_PAD*2); }
+
+const ZP2_TOP = 490, ZP2_BOT = 790, ZP2_Y = 555, ZP2_CY = 665;
+
+const SVG_H = ZP2_BOT + 20;
+
+const exons = [
+  [33018200,33019800],[33028000,33028400],[33033500,33033900],
+  [33040000,33040300],[33043500,33043800],[33046500,33047200],
+  [33054800,33055200],[33058000,33058600],[33063500,33064000],
+  [33065500,33066200],[33068500,33070000],
+].map(([s,e])=>[lift(s),lift(e)]);
+
+const cpgIsland = [lift(33017800), lift(33019600)];
+const tssPos = lift(33018200), promPos = lift(33018500);
+
+// split sites
+const z1Sites = allSites.filter(s => s.pos >= Z1_START && s.pos <= Z1_END);
+const z2Sites = allSites.filter(s => s.pos >= Z2_START && s.pos <= Z2_END);
+const z1Set   = new Set(z1Sites.map(s=>s.id));
+const z2Set   = new Set(z2Sites.map(s=>s.id));
+const ovOnlySites = allSites.filter(s => !z1Set.has(s.id) && !z2Set.has(s.id));
+
+// evenly space zoom sites
+function makeLayout(sites, xFn){
+  if(sites.length===1) return [{...sites[0], displayX: ML+DRAW_W/2, realX:xFn(sites[0].pos)}];
+  const step = (DRAW_W - ZP_PAD*2) / (sites.length-1);
+  return sites.map((s,i)=>({...s, displayX: ML+ZP_PAD+i*step, realX:xFn(s.pos)}));
+}
+const z1Layout = makeLayout(z1Sites, zpX1);
+const z2Layout = makeLayout(z2Sites, zpX2);
+
+// svg setup
+const NS = "http://www.w3.org/2000/svg";
+const svg = document.getElementById("fig");
+svg.setAttribute("width", SVG_W);
+svg.setAttribute("height", SVG_H);
+svg.setAttribute("viewBox", `0 0 ${SVG_W} ${SVG_H}`);
+
+document.getElementById("coordLabel").textContent =
+  `chr13:${GEN_START.toLocaleString()}–${GEN_END.toLocaleString()}  ·  Hover annotated sites for details`;
+
+function el(tag, attrs, par){
+  const e=document.createElementNS(NS,tag);
+  for(const [k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  (par||svg).appendChild(e); return e;
+}
+function txt(s, attrs, par){ const e=el("text",attrs,par); e.textContent=s; return e; }
+function addTT(g, site, tags){
+  g.addEventListener("mouseenter",ev=>{
+    const t=document.getElementById("tt");
+    t.innerHTML=`<strong>${site.id}</strong><br>`+tags.map(t=>`<span style="color:${FC[t]}">● ${FL[t]}</span>`).join("<br>");
+    t.style.display="block"; t.style.left=(ev.clientX+14)+"px"; t.style.top=(ev.clientY-10)+"px";
+  });
+  g.addEventListener("mousemove",ev=>{
+    const t=document.getElementById("tt");
+    t.style.left=(ev.clientX+14)+"px"; t.style.top=(ev.clientY-10)+"px";
+  });
+  g.addEventListener("mouseleave",()=>{ document.getElementById("tt").style.display="none"; });
+}
+
+// ══ OVERVIEW gene track ══════════════════════════════
+el("line",{x1:ovX(lift(33018200)),y1:OV_Y,x2:ovX(lift(33070000)),y2:OV_Y,stroke:"#93c5fd","stroke-width":2.5});
+[0.2,0.4,0.6,0.8].forEach(f=>{
+  const x=ovX(lift(33018200)+f*(lift(33070000)-lift(33018200)));
+  el("polygon",{points:`${x},${OV_Y-4} ${x+6},${OV_Y} ${x},${OV_Y+4}`,fill:"#93c5fd",opacity:0.4});
+});
+exons.forEach(([s,e],i)=>{
+  el("rect",{x:ovX(s),y:OV_Y-7,width:Math.max(ovX(e)-ovX(s),4),height:14,fill:i===0?"#f97316":"#3b82f6",rx:1,opacity:0.85});
+});
+el("rect",{x:ovX(cpgIsland[0]),y:OV_Y-16,width:ovX(cpgIsland[1])-ovX(cpgIsland[0]),height:7,fill:"#22c55e",opacity:0.8,rx:1});
+txt("KL",{x:ovX(lift(33018200))-8,y:OV_Y+4,"text-anchor":"end",fill:"#3b82f6","font-size":15,"font-weight":"bold","font-style":"italic"});
+[33005000,33010000,33015000,33020000,33025000,33030000,33035000,33040000,
+ 33045000,33050000,33055000,33060000,33065000,33070000,33075000,33080000].forEach(p=>{
+  const pp=lift(p); if(pp<GEN_START||pp>GEN_END) return;
+  el("line",{x1:ovX(pp),y1:OV_Y+11,x2:ovX(pp),y2:OV_Y+16,stroke:"#94a3b8","stroke-width":1});
+  txt((pp/1e6).toFixed(3)+"M",{x:ovX(pp),y:OV_Y+25,"text-anchor":"middle",fill:"#64748b","font-size":8});
+});
+txt("chr13 (hg19)",{x:SVG_W/2,y:OV_Y+36,"text-anchor":"middle",fill:"#94a3b8","font-size":9});
+
+// ══ Overview-only sites (just cg05132118, cg09493701, cg02706658, cg00129557, cg25519292, cg23584087, cg00752249) ══
+ovOnlySites.forEach(site=>{
+  const tags=findings[site.id]||[];
+  const x=ovX(site.pos);
+  const g=el("g",{cursor:tags.length?"pointer":"default"});
+  el("line",{x1:x,y1:OV_Y-9,x2:x,y2:OV_Y-26,stroke:tags.length?FC[tags[0]]:"#94a3b8","stroke-width":tags.length?1.8:1,opacity:0.75},g);
+  tags.forEach((tag,ti)=>{
+    el("circle",{cx:x,cy:OV_Y-30-ti*11,r:5.5,fill:FC[tag],stroke:"#fff","stroke-width":1,opacity:0.93},g);
+  });
+  if(!tags.length) el("circle",{cx:x,cy:OV_Y-28,r:2.5,fill:"#94a3b8",opacity:0.5},g);
+  // leader + label well above dots
+  const dotTopY = tags.length>0 ? OV_Y-30-(tags.length-1)*11-6 : OV_Y-32;
+  const leaderEndY = dotTopY - 14;
+  if(tags.length) el("line",{x1:x,y1:dotTopY,x2:x,y2:leaderEndY+2,stroke:"#94a3b8","stroke-width":0.8,"stroke-dasharray":"2,2",opacity:0.6},g);
+  const ly = leaderEndY;
+  txt(site.id,{x,y:ly,"text-anchor":"end",fill:tags.length?"#1e293b":"#94a3b8","font-size":tags.length?8.5:7,"font-weight":tags.length?"700":"400",transform:`rotate(-55,${x},${ly})`},g);
+  if(tags.length) addTT(g,site,tags);
+  svg.appendChild(g);
+});
+
+// ══ helper: draw a zoom bracket + connectors ══
+function drawBracket(xStart, xEnd, panelTop, panelLeft, panelRight, color, label, coordStr){
+  el("rect",{x:ovX(xStart),y:OV_TOP,width:ovX(xEnd)-ovX(xStart),height:OV_BOT-OV_TOP,fill:color,opacity:0.1,rx:2});
+  el("rect",{x:ovX(xStart),y:OV_TOP,width:ovX(xEnd)-ovX(xStart),height:OV_BOT-OV_TOP,fill:"none",stroke:color,"stroke-width":1.2,"stroke-dasharray":"5,3",rx:2});
+  // magnifier icon
+  const mx=ovX(xEnd)+10, my=OV_TOP+10;
+  el("circle",{cx:mx,cy:my,r:7,fill:"none",stroke:color,"stroke-width":1.5});
+  el("line",{x1:mx+5,y1:my+5,x2:mx+10,y2:my+10,stroke:color,"stroke-width":2});
+  txt(label,{x:mx+14,y:my+5,fill:color,"font-size":9,"font-weight":"bold"});
+  // connectors
+  el("line",{x1:ovX(xStart),y1:OV_BOT,x2:panelLeft,y2:panelTop,stroke:color,"stroke-width":1,"stroke-dasharray":"5,4",opacity:0.45});
+  el("line",{x1:ovX(xEnd),  y1:OV_BOT,x2:panelRight,y2:panelTop,stroke:color,"stroke-width":1,"stroke-dasharray":"5,4",opacity:0.45});
+}
+
+drawBracket(Z1_START, Z1_END, ZP1_TOP, ML, SVG_W-MR, "#fbbf24", "Promoter (zoomed)", "");
+drawBracket(Z2_START, Z2_END, ZP2_TOP, ML, SVG_W-MR, "#a78bfa", "3′ region (zoomed)", "");
+
+// ══ helper: draw a zoom panel content ══
+function drawZoomPanel(layout, panelTop, panelBot, geneY, cpgY,
+                        zStart, zEnd, zXfn, panelColor, panelLabel, coordStr,
+                        showPromoter){
+  const PW = DRAW_W;
+  // background
+  el("rect",{x:ML,y:panelTop,width:PW,height:panelBot-panelTop,fill:"#f8fafc",opacity:0.55,rx:8});
+  el("rect",{x:ML,y:panelTop,width:PW,height:panelBot-panelTop,fill:"none",stroke:panelColor,"stroke-width":1.2,rx:8});
+  // panel label
+  txt(panelLabel,{x:ML+10,y:panelTop+15,fill:panelColor,"font-size":10,"font-weight":"bold"});
+  txt(coordStr,  {x:ML+10,y:panelTop+27,fill:"#94a3b8","font-size":8.5});
+
+  if(showPromoter){
+    // CpG island
+    const ci0=zXfn(cpgIsland[0]), ci1=zXfn(cpgIsland[1]);
+    el("rect",{x:ci0,y:geneY-38,width:ci1-ci0,height:16,fill:"#22c55e",opacity:0.55,rx:4});
+    txt("CpG Island",{x:(ci0+ci1)/2,y:geneY-25,"text-anchor":"middle",fill:"#166534","font-size":10,"font-weight":"bold"});
+    // promoter arrow
+    const px=zXfn(promPos);
+    el("polygon",{points:`${px},${geneY-60} ${px+14},${geneY-67} ${px+14},${geneY-53}`,fill:"#f97316"});
+    el("rect",{x:px-26,y:geneY-67,width:26,height:14,fill:"#f97316",rx:3});
+    txt("P",{x:px-13,y:geneY-57,"text-anchor":"middle",fill:"#fff","font-size":9,"font-weight":"bold"});
+    txt("KL_1 Promoter",{x:px+18,y:geneY-57,fill:"#f97316","font-size":10});
+    // TSS
+    const tx=zXfn(tssPos);
+    el("line",{x1:tx,y1:geneY-50,x2:tx,y2:geneY-18,stroke:"#f59e0b","stroke-width":1.8,"stroke-dasharray":"4,2"});
+    txt("TSS",{x:tx,y:geneY-52,"text-anchor":"middle",fill:"#f59e0b","font-size":10});
+  }
+
+  // gene body
+  el("line",{x1:ML,y1:geneY,x2:ML+PW,y2:geneY,stroke:"#93c5fd","stroke-width":3});
+  // exons that fall in range
+  exons.forEach(([s,e],i)=>{
+    const x0=Math.max(zXfn(s),ML), x1=Math.min(zXfn(e),ML+PW);
+    if(x1<x0) return;
+    // check overlap with panel range
+    if(e<zStart||s>zEnd) return;
+    el("rect",{x:x0,y:geneY-11,width:x1-x0,height:22,fill:i===0?"#f97316":"#3b82f6",rx:3,opacity:0.85});
+  });
+
+  // axis tick line
+  el("line",{x1:ML+ZP_PAD,y1:geneY+22,x2:ML+PW-ZP_PAD,y2:geneY+22,stroke:"#cbd5e1","stroke-width":1});
+
+  // sites
+  layout.forEach(site=>{
+    const tags=findings[site.id]||[];
+    const isAnn=tags.length>0;
+    const lx=site.displayX, rx=site.realX;
+    const g=el("g",{cursor:isAnn?"pointer":"default"});
+    // connector genomic → display
+    el("line",{x1:rx,y1:geneY+14,x2:lx,y2:cpgY-40,stroke:isAnn?FC[tags[0]]:"#cbd5e1","stroke-width":0.8,"stroke-dasharray":"2,2",opacity:0.4},g);
+    // tick
+    el("line",{x1:lx,y1:cpgY-36,x2:lx,y2:cpgY+12,stroke:isAnn?"#64748b":"#cbd5e1","stroke-width":isAnn?1.2:0.8,opacity:isAnn?1:0.5},g);
+    // stacked dots
+    tags.forEach((tag,ti)=>{
+      el("circle",{cx:lx,cy:cpgY-42-ti*13,r:7,fill:FC[tag],stroke:"#fff","stroke-width":1.2,opacity:0.95},g);
+    });
+    if(!isAnn) el("circle",{cx:lx,cy:cpgY-42,r:3.5,fill:"#cbd5e1",opacity:0.6},g);
+    // label — well below tick bottom, clear of dots above
+    const labelY = cpgY + 28;
+    txt(site.id,{x:lx,y:labelY,"text-anchor":"end",fill:isAnn?"#1e293b":"#64748b","font-size":isAnn?9:8,"font-weight":isAnn?"700":"400",transform:`rotate(-55,${lx},${labelY})`},g);
+    if(isAnn) addTT(g,site,tags);
+    svg.appendChild(g);
+  });
+}
+
+// draw panel 1 — promoter
+drawZoomPanel(z1Layout, ZP1_TOP, ZP1_BOT, ZP1_Y, ZP1_CY,
+  Z1_START, Z1_END, zpX1, "#fbbf24",
+  "Promoter region (zoomed)",
+  `chr13:${Z1_START.toLocaleString()}–${Z1_END.toLocaleString()}`,
+  true);
+
+// draw panel 2 — 3-prime
+drawZoomPanel(z2Layout, ZP2_TOP, ZP2_BOT, ZP2_Y, ZP2_CY,
+  Z2_START, Z2_END, zpX2, "#a78bfa",
+  "3′ dense region (zoomed)",
+  `chr13:${Z2_START.toLocaleString()}–${Z2_END.toLocaleString()}`,
+  false);
+
+// ── Save SVG ──
+function saveSVG(){
+  const clone=svg.cloneNode(true);
+  clone.setAttribute("xmlns","http://www.w3.org/2000/svg");
+  const s=document.createElementNS(NS,"style"); s.textContent="text{font-family:sans-serif;}";
+  clone.insertBefore(s,clone.firstChild);
+  const blob=new Blob(['<?xml version="1.0" encoding="UTF-8"?>\n'+clone.outerHTML],{type:"image/svg+xml"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob); a.download="KL_gene_CpG_hg19.svg"; a.click();
+}
+</script>
+</body>
+</html>
