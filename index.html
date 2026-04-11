@@ -2,54 +2,141 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<title>KL Gene — hg19 Annotated CpG Findings</title>
+<title>KLOTHO Gene — hg19 Annotated CpG Findings</title>
 <style>
   * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:white; font-family:sans-serif; padding:20px; }
-  h2 { text-align:center; font-size:15px; color:#1e293b; margin-bottom:3px; }
-  p.sub { text-align:center; font-size:10px; color:#64748b; margin-bottom:10px; }
+  body { background:#ffffff; font-family:'Courier New',monospace; padding:24px; color:#1e293b; }
+  h2 { text-align:center; font-size:14px; color:#1d4ed8; letter-spacing:.08em; text-transform:uppercase; margin-bottom:3px; font-family:'Georgia',serif; }
+  p.sub { text-align:center; font-size:10px; color:#64748b; margin-bottom:12px; letter-spacing:.03em; }
   .scroll-wrap { overflow-x:auto; width:100%; position:relative; }
   svg { display:block; overflow:visible; }
-  .legend { display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-top:10px; }
-  .legend-item { display:flex; align-items:center; gap:5px; font-size:11px; color:#334155; }
-  .legend-sep { width:100%; border-top:0.5px solid #e2e8f0; margin:5px 0; }
-  .btn { display:block; margin:14px auto 0; padding:7px 22px; background:#3b82f6; color:#fff; border:none; border-radius:6px; font-size:13px; cursor:pointer; }
-  .btn:hover { background:#2563eb; }
-  .tooltip { position:absolute; pointer-events:none; background:#0f172a; color:#f1f5f9; border:1px solid #475569; border-radius:5px; padding:7px 11px; font-size:11px; line-height:1.9; display:none; z-index:999; max-width:320px; }
+  .legend { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; margin-top:16px; padding:0 12px; }
+  .legend-item { display:flex; align-items:center; gap:8px; font-size:13px; color:#334155; }
+  .legend-sep { width:100%; border-top:0.5px solid #e2e8f0; margin:8px 0; }
+  .btn { display:block; margin:14px auto 0; padding:7px 22px; background:#1e40af; color:#bfdbfe; border:1px solid #3b82f6; border-radius:4px; font-size:12px; cursor:pointer; letter-spacing:.05em; }
+  .btn:hover { background:#2563eb; color:#fff; }
+  .tooltip { position:absolute; pointer-events:none; background:#0f172a; color:#f1f5f9; border:1px solid #334155; border-radius:5px; padding:8px 12px; font-size:11px; line-height:1.9; display:none; z-index:999; max-width:340px; box-shadow:0 4px 16px rgba(0,0,0,.18); }
 </style>
 </head>
 <body>
-<h2>KL Gene — chr13 (GRCh37/hg19) · Annotated CpG Findings</h2>
+<h2>KLOTHO Gene — chr13 (GRCh37/hg19) · Annotated CpG Findings</h2>
 <p class="sub" id="coordLabel"></p>
 <div class="scroll-wrap" id="swrap">
-<div class="tooltip" id="tt"></div>
-<svg id="fig"></svg>
+  <div class="tooltip" id="tt"></div>
+  <svg id="fig"></svg>
 </div>
+
 <div class="legend">
-  <div class="legend-item"><div style="width:11px;height:11px;border-radius:50%;background:#4ade80;flex-shrink:0"></div>Exercise effect</div>
-  <div class="legend-item"><div style="width:11px;height:11px;border-radius:50%;background:#d1d5db;border:1px solid #94a3b8;flex-shrink:0"></div>Pre-randomization</div>
-  <div class="legend-item"><div style="width:11px;height:11px;border-radius:50%;background:#f9a8d4;flex-shrink:0"></div>Mediation</div>
-  <div class="legend-item"><div style="width:11px;height:11px;border-radius:50%;background:#fb923c;flex-shrink:0"></div>Prediction</div>
-  <div class="legend-item"><div style="width:11px;height:11px;border-radius:50%;background:#93c5fd;flex-shrink:0"></div>Moderation</div>
-  <div class="legend-item"><div style="width:11px;height:11px;border-radius:50%;background:#fde68a;border:1px solid #f59e0b;flex-shrink:0"></div>meQTL</div>
-  <div class="legend-item"><svg width="12" height="12" viewBox="0 0 12 12"><polygon points="6,0 12,6 6,12 0,6" fill="#f59e0b"/></svg>SNP / haplotype</div>
-  <div class="legend-item" style="color:#64748b">&#8593; positive &nbsp;&#8595; negative &nbsp;(exercise, pre-randomization &amp; prediction only)</div>
+  <div class="legend-item"><div style="width:15px;height:15px;border-radius:50%;background:#4ade80;flex-shrink:0"></div>Exercise effect</div>
+  <div class="legend-item"><div style="width:15px;height:15px;border-radius:50%;background:#d1d5db;border:1px solid #94a3b8;flex-shrink:0"></div>Pre-randomization</div>
+  <div class="legend-item"><div style="width:15px;height:15px;border-radius:50%;background:#f9a8d4;flex-shrink:0"></div>Mediation</div>
+  <div class="legend-item"><div style="width:15px;height:15px;border-radius:50%;background:#fb923c;flex-shrink:0"></div>Prediction</div>
+  <div class="legend-item"><div style="width:15px;height:15px;border-radius:50%;background:#93c5fd;flex-shrink:0"></div>Moderation</div>
+  <div class="legend-item"><div style="width:15px;height:15px;border-radius:50%;background:#fde68a;border:1px solid #f59e0b;flex-shrink:0"></div>meQTL</div>
+  <div class="legend-item"><svg width="15" height="15" viewBox="0 0 12 12"><polygon points="6,0 12,6 6,12 0,6" fill="#f59e0b"/></svg>SNP</div>
+  <div class="legend-item" style="color:#64748b;font-size:12px;">↑ positive &nbsp;↓ negative &nbsp;(exercise, pre-random &amp; prediction)</div>
   <div class="legend-sep"></div>
-  <div class="legend-item"><div style="width:11px;height:11px;border-radius:50%;background:#22c55e;flex-shrink:0"></div>CpG Island</div>
-  <div class="legend-item"><div style="width:11px;height:11px;border-radius:50%;background:#f97316;flex-shrink:0"></div>Promoter / Exon 1</div>
-  <div class="legend-item"><div style="width:11px;height:11px;border-radius:50%;background:#3b82f6;flex-shrink:0"></div>Exon</div>
-  <div class="legend-item"><div style="width:11px;height:11px;border-radius:50%;background:#94a3b8;flex-shrink:0"></div>Other CpG site</div>
+  <div class="legend-item"><div style="width:15px;height:15px;border-radius:50%;background:#7c3aed;flex-shrink:0"></div>CpG Island</div>
+  <div class="legend-item"><div style="width:15px;height:15px;border-radius:50%;background:#3b82f6;flex-shrink:0"></div>Exons 1&ndash;5</div>
+  <div class="legend-item"><div style="width:15px;height:8px;border-radius:2px;background:#14532d;opacity:.5;border:1.8px solid #15803d;flex-shrink:0"></div>Promoter (~500 bp)</div>
+  <div class="legend-item"><div style="width:15px;height:15px;border-radius:50%;background:#cbd5e1;flex-shrink:0"></div>Unannotated CpG</div>
+  <div class="legend-sep"></div>
+  <div class="legend-item" style="color:#6d28d9;font-size:11px;">
+    ✦ Verified: RefSeq NM_004795 · 5 exons · txdbmaker refGene hg19 ·
+    CpG island AnnotationHub AH5086 · SNPlocs dbSNP144 · EPIC array anno ilm10b4
+  </div>
 </div>
-<button class="btn" onclick="saveSVG()">Download as SVG</button>
+<button class="btn" onclick="saveSVG()">Download SVG</button>
+
 <script>
-const OFFSET=572200;
-const lift=p=>p+OFFSET;
-const FC={exercise:"#4ade80",prerandom:"#d1d5db",mediation:"#f9a8d4",prediction:"#fb923c",moderation:"#93c5fd",meqtl:"#fde68a"};
-const FL={exercise:"Exercise effect",prerandom:"Pre-randomization",mediation:"Mediation",prediction:"Prediction",moderation:"Moderation",meqtl:"meQTL"};
+/* ═══════════════════════════════════════════════════════════════════
+   ALL COORDINATES FROM R (verified)
+   Gene    : chr13:33,590,561–33,640,280  (+ strand)
+   Exons   : 5 exons from RefSeq NM_004795
+             txdbmaker::makeTxDbFromUCSC(genome="hg19", tablename="refGene")
+   CpG isl : 33,589,929–33,591,428  (UCSC CpG:147, AnnotationHub AH5086)
+   CpG pos : IlluminaHumanMethylationEPICanno.ilm10b4.hg19
+   SNPs    : SNPlocs.Hsapiens.dbSNP144.GRCh37
+   TSS     : 33,590,561 (E1 start, NM_004795)
+   Promoter: 33,590,061–33,590,560 (500 bp upstream)
+═══════════════════════════════════════════════════════════════════ */
+
+// ── Colours ──────────────────────────────────────────────────────
+const FC={exercise:"#4ade80",prerandom:"#d1d5db",mediation:"#f9a8d4",
+          prediction:"#fb923c",moderation:"#93c5fd",meqtl:"#fde68a"};
+const FL={exercise:"Exercise effect",prerandom:"Pre-randomization",
+          mediation:"Mediation",prediction:"Prediction",
+          moderation:"Moderation",meqtl:"meQTL"};
 const SHOW_DIR={exercise:true,prerandom:true,prediction:true};
 
-const findings={
-  cg02706658:[{type:"meqtl",domains:[],note:"meQTL for rs9536314 / rs9527025 (KL-VS variant)"}],
+// Island-relation → used ONLY for the colour bar, not for CpG dots
+const ISLAND_COL={
+  Island:"#7c3aed", N_Shore:"#c4b5fd",
+  S_Shore:"#fbbf24", S_Shelf:"#fde68a", OpenSea:"#cbd5e1"
+};
+
+// ── Verified exon coordinates (RefSeq NM_004795, refGene hg19) ───
+// Source: txdbmaker::makeTxDbFromUCSC(genome="hg19", tablename="refGene")
+const EXONS=[
+  [33590561,33591397],  // E1 – 5′ UTR + CDS start (inside CpG island)
+  [33627904,33628414],  // E2 – coding (contains KL-VS rs9536314/rs9527025)
+  [33629184,33629452],  // E3 – coding
+  [33634816,33635917],  // E4 – coding
+  [33637986,33640280],  // E5 – coding + 3′ UTR
+];
+
+// ── CpG island (AnnotationHub AH5086) ───────────────────────────
+const CPG_ISLAND=[33589929,33591428];
+
+// ── TSS & promoter window ────────────────────────────────────────
+const TSS=33590561;
+const PROM=[33590061,33590560];  // 500 bp upstream of TSS (33590561)
+
+// ── All CpG sites (IlluminaHumanMethylationEPICanno.ilm10b4.hg19) ─
+// Format: {id, pos, region, island_rel}
+const ALL_SITES=[
+  {id:"cg05132118",pos:33580952,region:"",           irel:"OpenSea"},
+  {id:"cg18056695",pos:33589285,region:"TSS1500",    irel:"N_Shore"},
+  {id:"cg23943268",pos:33589621,region:"TSS1500",    irel:"N_Shore"},
+  {id:"cg03429431",pos:33589786,region:"TSS1500",    irel:"N_Shore"},
+  {id:"cg03667047",pos:33589962,region:"TSS1500",    irel:"Island"},
+  {id:"cg17806623",pos:33590002,region:"TSS1500",    irel:"Island"},
+  {id:"cg14172562",pos:33590015,region:"TSS1500",    irel:"Island"},
+  {id:"cg09886946",pos:33590048,region:"TSS1500",    irel:"Island"},
+  {id:"cg05855588",pos:33590273,region:"TSS1500",    irel:"Island"},
+  {id:"cg17106222",pos:33590343,region:"TSS1500",    irel:"Island"},
+  {id:"cg25698998",pos:33590401,region:"TSS200",     irel:"Island"},
+  {id:"cg02796545",pos:33590466,region:"TSS200",     irel:"Island"},
+  {id:"cg14145477",pos:33590493,region:"TSS200",     irel:"Island"},
+  {id:"cg05116906",pos:33590495,region:"TSS200",     irel:"Island"},
+  {id:"cg02441765",pos:33590838,region:"1stExon",    irel:"Island"},
+  {id:"cg23282559",pos:33591130,region:"1stExon",    irel:"Island"},
+  {id:"cg12162530",pos:33591783,region:"Body",       irel:"S_Shore"},
+  {id:"cg01308409",pos:33591937,region:"Body",       irel:"S_Shore"},
+  {id:"cg25223823",pos:33593349,region:"Body",       irel:"S_Shore"},
+  {id:"cg20672059",pos:33594284,region:"Body",       irel:"S_Shelf"},
+  {id:"cg09493701",pos:33597312,region:"Body",       irel:"OpenSea"},
+  {id:"cg02706658",pos:33607403,region:"Body",       irel:"OpenSea"},
+  {id:"cg00129557",pos:33607618,region:"Body",       irel:"OpenSea"},
+  {id:"cg25519292",pos:33625925,region:"Body",       irel:"OpenSea"},
+  {id:"cg23584087",pos:33626629,region:"Body",       irel:"OpenSea"},
+  {id:"cg19154940",pos:33631360,region:"Body",       irel:"OpenSea"},
+  {id:"cg26325430",pos:33639059,region:"3'UTR",      irel:"OpenSea"},
+  {id:"cg13415069",pos:33640533,region:"",           irel:"OpenSea"},
+  {id:"cg09634936",pos:33640668,region:"",           irel:"OpenSea"},
+  {id:"cg11091909",pos:33640726,region:"",           irel:"OpenSea"},
+  {id:"cg01463226",pos:33640868,region:"",           irel:"OpenSea"},
+  {id:"cg08416394",pos:33640929,region:"",           irel:"OpenSea"},
+  {id:"cg19860320",pos:33640942,region:"",           irel:"OpenSea"},
+  {id:"cg15206000",pos:33643918,region:"",           irel:"OpenSea"},
+  {id:"cg11413498",pos:33644900,region:"",           irel:"OpenSea"},
+  {id:"cg00069969",pos:33646763,region:"",           irel:"OpenSea"},
+  {id:"cg00752249",pos:33655293,region:"",           irel:"OpenSea"},
+];
+
+// ── Findings (from EPICC study) ───────────────────────────────────
+const FINDINGS={
+  cg02706658:[{type:"meqtl",domains:[],note:"meQTL → rs9536314/rs9527025 (KL-VS)"}],
   cg17106222:[{type:"prerandom",domains:[{name:"Working Memory",dir:"positive"}]}],
   cg23282559:[{type:"prerandom",domains:[{name:"Learning and Memory",dir:"negative"}]}],
   cg25223823:[{type:"prerandom",domains:[{name:"Processing Speed",dir:"negative"}]}],
@@ -105,110 +192,56 @@ const findings={
   cg25519292:[{type:"moderation",domains:[{name:"Verbal Memory",dir:null}]}],
 };
 
+// ── SNP markers (dbSNP144 hg19) ──────────────────────────────────
 const SNP_MARKERS=[
   {
-    id:"KL-VS",pos:lift(33596444-572200),offset:0,
-    tooltip:`<strong style="font-size:12px">KL-VS haplotype</strong><br>`+
-      `<span style="color:#f59e0b">&#9670;</span> rs9536314 &mdash; F352V<br>`+
-      `<span style="color:#f59e0b">&#9670;</span> rs9527025 &mdash; C370S<br>`+
-      `<span style="color:#fde68a">&#9679;</span> <span style="color:#94a3b8">meQTL</span> &rarr; cg02706658<br>`+
-      `<span style="color:#d1d5db">&#9679;</span> <span style="color:#94a3b8">Pre-randomization</span> &mdash; Processing Speed &#8595;<br>`+
-      `<span style="color:#d1d5db">&#9679;</span> <span style="color:#94a3b8">Pre-randomization</span> &mdash; Working Memory &#8595;`,
+    id:"KL-VS", pos:33628138, above:false, offset:0,
+    tooltip:`<strong>KL-VS haplotype</strong> — Exon 3<br>`+
+      `◆ rs9536314 : chr13:33,628,138 (F352V)<br>`+
+      `◆ rs9527025 : chr13:33,628,193 (C370S)<br>`+
+      `<span style="color:#fde68a">●</span> meQTL → cg02706658`,
   },
   {
-    id:"rs1207568",pos:lift(33593682-572200),offset:22,
-    tooltip:`<strong style="font-size:12px">rs1207568</strong><br>`+
-      `<span style="color:#f59e0b">&#9670;</span> SNP<br>`+
-      `<span style="color:#fb923c">&#9679;</span> <span style="color:#94a3b8">Prediction</span> &mdash; Executive Function &#8593;`,
+    id:"rs1207568", pos:33590184, above:true, offset:0,
+    tooltip:`<strong>rs1207568</strong> — Promoter<br>`+
+      `chr13:33,590,184<br>c.−395G>A<br>`+
+      `<span style="color:#fb923c">●</span> Prediction — Executive Function ↑`,
   },
 ];
 
-const allSites=[
-  {id:"cg05132118",pos:lift(33005500)},
-  {id:"cg18056695",pos:lift(33018600)},
-  {id:"cg23943268",pos:lift(33018700)},
-  {id:"cg03429431",pos:lift(33018800)},
-  {id:"cg03667047",pos:lift(33018900)},
-  {id:"cg17806623",pos:lift(33019000)},
-  {id:"cg14172562",pos:lift(33019100)},
-  {id:"cg09886946",pos:lift(33019200)},
-  {id:"cg05855588",pos:lift(33019300)},
-  {id:"cg17106222",pos:lift(33019400)},
-  {id:"cg25698998",pos:lift(33019500)},
-  {id:"cg02796545",pos:lift(33019600)},
-  {id:"cg14145477",pos:lift(33019700)},
-  {id:"cg05116906",pos:lift(33019800)},
-  {id:"cg02441765",pos:lift(33019900)},
-  {id:"cg23282559",pos:lift(33020000)},
-  {id:"cg12162530",pos:lift(33020100)},
-  {id:"cg01308409",pos:lift(33020200)},
-  {id:"cg25223823",pos:lift(33020300)},
-  {id:"cg20672059",pos:lift(33020400)},
-  {id:"cg09493701",pos:lift(33023000)},
-  {id:"cg02706658",pos:lift(33033000)},
-  {id:"cg00129557",pos:lift(33034500)},
-  {id:"cg25519292",pos:lift(33043000)},
-  {id:"cg23584087",pos:lift(33047000)},
-  {id:"cg19154940",pos:lift(33054500)},
-  {id:"cg26325430",pos:lift(33058000)},
-  {id:"cg13415069",pos:lift(33059000)},
-  {id:"cg09634936",pos:lift(33059500)},
-  {id:"cg11091909",pos:lift(33060000)},
-  {id:"cg01463226",pos:lift(33060500)},
-  {id:"cg08416394",pos:lift(33061000)},
-  {id:"cg19860320",pos:lift(33061500)},
-  {id:"cg11413498",pos:lift(33063000)},
-  {id:"cg00069969",pos:lift(33064500)},
-  {id:"cg15206000",pos:lift(33065000)},
-  {id:"cg00752249",pos:lift(33082000)},
-];
+// ── Layout constants ─────────────────────────────────────────────
+const SVG_W=1800, ML=72, MR=40, DRAW_W=SVG_W-ML-MR;
+const ZP_PAD=55;
 
-const SVG_W=1800,ML=70,MR=40,DRAW_W=SVG_W-ML-MR,ZP_PAD=40;
-const GEN_START=lift(33003000),GEN_END=lift(33084000),GEN_RANGE=GEN_END-GEN_START;
-const OV_Y=110,OV_TOP=20,OV_BOT=158;
+// Gene span with padding for display
+const GEN_START=33579000, GEN_END=33657000;
+const GEN_RANGE=GEN_END-GEN_START;
 function ovX(p){return ML+(p-GEN_START)/GEN_RANGE*DRAW_W;}
 
-const Z1_START=lift(33017500),Z1_END=lift(33021200);
-function zpX1(p){return ML+ZP_PAD+(p-Z1_START)/(Z1_END-Z1_START)*(DRAW_W-ZP_PAD*2);}
-const ZP1_TOP=178,ZP1_BOT=510,ZP1_Y=248,ZP1_CY=372;
+// Zoom 1: 5′ cluster — promoter + CpG island + E1/E2 + S_Shore
+const Z1_S=33579000, Z1_E=33596000;
+function z1X(p){return ML+ZP_PAD+(p-Z1_S)/(Z1_E-Z1_S)*(DRAW_W-ZP_PAD*2);}
+const ZP1_TOP=180, ZP1_BOT=640, ZP1_GY=370, ZP1_CY=520;
 
-const Z2_START=lift(33053500),Z2_END=lift(33066000);
-function zpX2(p){return ML+ZP_PAD+(p-Z2_START)/(Z2_END-Z2_START)*(DRAW_W-ZP_PAD*2);}
-const ZP2_TOP=530,ZP2_BOT=870,ZP2_Y=592,ZP2_CY=722;
+// Zoom 2: 3′ cluster — E3..E7 + 3′ UTR + downstream OpenSea
+const Z2_S=33624000, Z2_E=33657000;
+function z2X(p){return ML+ZP_PAD+(p-Z2_S)/(Z2_E-Z2_S)*(DRAW_W-ZP_PAD*2);}
+const ZP2_TOP=660, ZP2_BOT=1040, ZP2_GY=770, ZP2_CY=915;
+
 const SVG_H=ZP2_BOT+20;
-
-const exons=[
-  [33018200,33019800],[33028000,33028400],[33033500,33033900],
-  [33040000,33040300],[33043500,33043800],[33046500,33047200],
-  [33054800,33055200],[33058000,33058600],[33063500,33064000],
-  [33065500,33066200],[33068500,33070000],
-].map(([s,e])=>[lift(s),lift(e)]);
-
-const cpgIsland=[lift(33017800),lift(33019600)];
-const tssPos=lift(33018200),promPos=lift(33018500);
-
-const z1Sites=allSites.filter(s=>s.pos>=Z1_START&&s.pos<=Z1_END);
-const z2Sites=allSites.filter(s=>s.pos>=Z2_START&&s.pos<=Z2_END);
-const z1Set=new Set(z1Sites.map(s=>s.id));
-const z2Set=new Set(z2Sites.map(s=>s.id));
-const ovOnlySites=allSites.filter(s=>!z1Set.has(s.id)&&!z2Set.has(s.id));
-
-function makeLayout(sites,xFn){
-  if(sites.length===1)return[{...sites[0],displayX:ML+DRAW_W/2,realX:xFn(sites[0].pos)}];
-  const step=(DRAW_W-ZP_PAD*2)/(sites.length-1);
-  return sites.map((s,i)=>({...s,displayX:ML+ZP_PAD+i*step,realX:xFn(s.pos)}));
-}
-const z1Layout=makeLayout(z1Sites,zpX1);
-const z2Layout=makeLayout(z2Sites,zpX2);
+const OV_Y=108;
 
 const NS="http://www.w3.org/2000/svg";
 const svg=document.getElementById("fig");
 svg.setAttribute("width",SVG_W);
 svg.setAttribute("height",SVG_H);
 svg.setAttribute("viewBox",`0 0 ${SVG_W} ${SVG_H}`);
-document.getElementById("coordLabel").textContent=
-  `chr13:${GEN_START.toLocaleString()}\u2013${GEN_END.toLocaleString()}  \u00b7  KL on reverse strand (3\u2032\u21925\u2032, right to left)  \u00b7  Hover annotated sites for details`;
 
+document.getElementById("coordLabel").textContent=
+  `chr13:${GEN_START.toLocaleString()}–${GEN_END.toLocaleString()} · GRCh37/hg19 · `+
+  `KL plus strand (5′→3′) · NM_004795 · 5 exons · Hover annotated sites for details`;
+
+// ── SVG helpers ──────────────────────────────────────────────────
 function el(tag,attrs,par){
   const e=document.createElementNS(NS,tag);
   for(const[k,v]of Object.entries(attrs))e.setAttribute(k,v);
@@ -216,201 +249,402 @@ function el(tag,attrs,par){
 }
 function txt(s,attrs,par){const e=el("text",attrs,par);e.textContent=s;return e;}
 
-function buildCpGTooltip(siteId){
-  const flist=findings[siteId];
-  if(!flist||!flist.length)return null;
-  let html=`<strong style="font-size:12px">${siteId}</strong><br>`;
-  flist.forEach(f=>{
-    const color=FC[f.type]||"#94a3b8";
-    const label=FL[f.type]||f.type;
-    const showDir=SHOW_DIR[f.type];
-    if(f.note){
-      html+=`<span style="color:${color}">&#9679;</span> <span style="color:#94a3b8">${label}</span> &mdash; ${f.note}<br>`;
-    } else if(f.domains&&f.domains.length){
-      f.domains.forEach(d=>{
-        const arrow=showDir?(d.dir==="positive"?" &#8593;":d.dir==="negative"?" &#8595;":""):"";
-        html+=`<span style="color:${color}">&#9679;</span> <span style="color:#94a3b8">${label}</span> &mdash; ${d.name}${arrow}<br>`;
-      });
-    } else {
-      html+=`<span style="color:${color}">&#9679;</span> <span style="color:#94a3b8">${label}</span><br>`;
-    }
-  });
-  return html;
+function diamond(x,y,r,fill,stroke,par){
+  el("polygon",{points:`${x},${y-r} ${x+r},${y} ${x},${y+r} ${x-r},${y}`,
+    fill,stroke,"stroke-width":1.5},par);
 }
 
 function attachTT(g,html){
   if(!html)return;
   g.style.cursor="pointer";
+  const tt=document.getElementById("tt");
+  const wr=document.getElementById("swrap");
   g.addEventListener("mouseenter",ev=>{
-    const wr=document.getElementById("swrap").getBoundingClientRect();
-    const t=document.getElementById("tt");
-    t.innerHTML=html;t.style.display="block";
-    t.style.left=(ev.clientX-wr.left+14)+"px";
-    t.style.top=(ev.clientY-wr.top-10)+"px";
+    tt.innerHTML=html; tt.style.display="block";
+    const r=wr.getBoundingClientRect();
+    tt.style.left=(ev.clientX-r.left+14)+"px";
+    tt.style.top=(ev.clientY-r.top-10)+"px";
   });
   g.addEventListener("mousemove",ev=>{
-    const wr=document.getElementById("swrap").getBoundingClientRect();
-    const t=document.getElementById("tt");
-    t.style.left=(ev.clientX-wr.left+14)+"px";
-    t.style.top=(ev.clientY-wr.top-10)+"px";
+    const r=wr.getBoundingClientRect();
+    tt.style.left=(ev.clientX-r.left+14)+"px";
+    tt.style.top=(ev.clientY-r.top-10)+"px";
   });
-  g.addEventListener("mouseleave",()=>{document.getElementById("tt").style.display="none";});
+  g.addEventListener("mouseleave",()=>{ tt.style.display="none"; });
 }
 
-function drawDiamond(x,y,r,fill,stroke,par){
-  el("polygon",{points:`${x},${y-r} ${x+r},${y} ${x},${y+r} ${x-r},${y}`,fill,stroke,"stroke-width":1.5},par);
+function cpgTooltip(id){
+  const flist=FINDINGS[id]; if(!flist||!flist.length)return null;
+  let h=`<strong>${id}</strong><br>`;
+  const site=ALL_SITES.find(s=>s.id===id);
+  if(site) h+=`<span style="color:#94a3b8">chr13:${site.pos.toLocaleString()} · ${site.region||"—"} · ${site.irel}</span><br>`;
+  flist.forEach(f=>{
+    const col=FC[f.type]||"#94a3b8";
+    const lab=FL[f.type]||f.type;
+    if(f.note){
+      h+=`<span style="color:${col}">●</span> ${lab} — ${f.note}<br>`;
+    } else {
+      f.domains.forEach(d=>{
+        const arr=SHOW_DIR[f.type]?(d.dir==="positive"?" ↑":d.dir==="negative"?" ↓":""):"";
+        h+=`<span style="color:${col}">●</span> ${lab} — ${d.name}${arr}<br>`;
+      });
+    }
+  });
+  return h;
 }
-function drawDirectionArrows(xL,xR,y,color,opacity){
-  const step=(xR-xL)/6;
-  for(let i=0;i<5;i++){
-    const ax=xR-i*step;
-    el("polygon",{points:`${ax},${y-4} ${ax-8},${y} ${ax},${y+4}`,fill:color,opacity});
+
+// ── Gene backbone helper ─────────────────────────────────────────
+function geneBackbone(x0,x1,y,thick){
+  el("line",{x1:x0,y1:y,x2:x1,y2:y,stroke:"#93c5fd","stroke-width":thick||2.5});
+  const n=8;
+  for(let i=1;i<=n;i++){
+    const ax=x0+(x1-x0)*i/(n+1);
+    el("polygon",{points:`${ax-5},${y-3} ${ax+3},${y} ${ax-5},${y+3}`,fill:"#3b82f6",opacity:.55});
   }
 }
-function draw5p3p(xL,xR,y,fs){
-  txt("3\u2032",{x:xR+6,y:y+4,fill:"#64748b","font-size":fs,"font-weight":"bold","font-style":"italic"});
-  txt("5\u2032",{x:xL-8,y:y+4,"text-anchor":"end",fill:"#64748b","font-size":fs,"font-weight":"bold","font-style":"italic"});
-  const ay=y-18;
-  el("line",{x1:xR-10,y1:ay,x2:xL+10,y2:ay,stroke:"#94a3b8","stroke-width":1.2,"stroke-dasharray":"4,2"});
-  el("polygon",{points:`${xL+10},${ay-4} ${xL+10},${ay+4} ${xL-2},${ay}`,fill:"#94a3b8"});
-  txt("transcription",{x:(xL+xR)/2,y:ay-5,"text-anchor":"middle",fill:"#94a3b8","font-size":9,"font-style":"italic"});
+
+function strandLabels(x0,x1,y,fs){
+  txt("5′",{x:x0-8,y:y+4,"text-anchor":"end",fill:"#64748b","font-size":fs,"font-style":"italic"});
+  txt("3′",{x:x1+6,y:y+4,fill:"#64748b","font-size":fs,"font-style":"italic"});
+  const ay=y-16;
+  el("line",{x1:x0+8,y1:ay,x2:x1-8,y2:ay,stroke:"#cbd5e1","stroke-width":1,"stroke-dasharray":"4,2"});
+  el("polygon",{points:`${x1-8},${ay-3} ${x1-8},${ay+3} ${x1+2},${ay}`,fill:"#cbd5e1"});
+  txt("transcription",{x:(x0+x1)/2,y:ay-4,"text-anchor":"middle",fill:"#cbd5e1","font-size":8,"font-style":"italic"});
 }
-function placeSNPMarker(x,geneY,marker,above){
+
+function drawExons(xFn,y,zS,zE,gL,gR){
+  EXONS.forEach(([s,e],i)=>{
+    if(e<zS||s>zE)return;
+    const x0=Math.max(xFn(s),gL), x1=Math.min(xFn(e),gR);
+    if(x1<=x0)return;
+    const fill="#3b82f6";
+    el("rect",{x:x0,y:y-10,width:x1-x0,height:20,fill,rx:3,opacity:.9});
+    if(x1-x0>22) txt(`E${i+1}`,{x:(x0+x1)/2,y:y+4,"text-anchor":"middle",
+      fill:"#fff","font-size":8,"font-weight":"bold"});
+  });
+  // intron chevrons
+  for(let i=0;i<EXONS.length-1;i++){
+    const eEnd=EXONS[i][1], sStart=EXONS[i+1][0];
+    if(eEnd>zE||sStart<zS)continue;
+    const x0=Math.min(Math.max(xFn(eEnd),gL),gR);
+    const x1=Math.min(Math.max(xFn(sStart),gL),gR);
+    if(x1>x0+4){
+      const mx=(x0+x1)/2;
+      el("polyline",{points:`${x0},${y} ${mx},${y-6} ${x1},${y}`,
+        fill:"none",stroke:"#93c5fd","stroke-width":1.2,"stroke-dasharray":"3,2"});
+    }
+  }
+}
+
+function placeSNP(xFn,geneY,marker,gL,gR){
+  const x=xFn(marker.pos);
+  if(x<gL||x>gR)return;
   const g=el("g",{});
-  const dir=above?-1:1;
-  const stemEnd=geneY+dir*(28+marker.offset);
-  el("line",{x1:x,y1:geneY+dir*12,x2:x,y2:stemEnd,stroke:"#f59e0b","stroke-width":1.8,"stroke-dasharray":"3,2"},g);
-  drawDiamond(x,stemEnd+dir*8,8,"#f59e0b","#fff",g);
-  txt(marker.id,{x:x,y:stemEnd+dir*20,"text-anchor":"middle",fill:"#92400e","font-size":8,"font-weight":"bold"},g);
+  const dir=marker.above?-1:1;
+  const stemEnd=geneY+dir*38;
+  el("line",{x1:x,y1:geneY+dir*11,x2:x,y2:stemEnd,
+    stroke:"#f59e0b","stroke-width":1.8,"stroke-dasharray":"3,2"},g);
+  diamond(x,stemEnd+dir*8,7,"#f59e0b","#ffffff",g);
+  txt(marker.id,{x,y:stemEnd+dir*20,"text-anchor":"middle",
+    fill:"#b45309","font-size":8,"font-weight":"bold"},g);
   attachTT(g,marker.tooltip);
   svg.appendChild(g);
 }
 
-/* ══ OVERVIEW ════════════════════════════════════════════════════ */
-const OV_LS=ovX(lift(33018200)),OV_LE=ovX(lift(33070000));
-el("line",{x1:OV_LS,y1:OV_Y,x2:OV_LE,y2:OV_Y,stroke:"#93c5fd","stroke-width":2.5});
-drawDirectionArrows(OV_LS,OV_LE,OV_Y,"#93c5fd",0.5);
-draw5p3p(OV_LS,OV_LE,OV_Y,11);
-exons.forEach(([s,e],i)=>{
-  el("rect",{x:ovX(s),y:OV_Y-7,width:Math.max(ovX(e)-ovX(s),4),height:14,fill:i===0?"#f97316":"#3b82f6",rx:1,opacity:0.85});
-});
-el("rect",{x:ovX(cpgIsland[0]),y:OV_Y-16,width:ovX(cpgIsland[1])-ovX(cpgIsland[0]),height:7,fill:"#22c55e",opacity:0.8,rx:1});
-txt("KL",{x:ovX(lift(33018200))-8,y:OV_Y+4,"text-anchor":"end",fill:"#3b82f6","font-size":15,"font-weight":"bold","font-style":"italic"});
-[33005,33010,33015,33020,33025,33030,33035,33040,33045,33050,33055,33060,33065,33070,33075,33080].forEach(p=>{
-  const pp=lift(p*1000);if(pp<GEN_START||pp>GEN_END)return;
-  el("line",{x1:ovX(pp),y1:OV_Y+11,x2:ovX(pp),y2:OV_Y+16,stroke:"#94a3b8","stroke-width":1});
-  txt((pp/1e6).toFixed(3)+"M",{x:ovX(pp),y:OV_Y+26,"text-anchor":"middle",fill:"#64748b","font-size":8});
-});
-txt("chr13 (hg19)",{x:SVG_W/2,y:OV_Y+37,"text-anchor":"middle",fill:"#94a3b8","font-size":9});
-SNP_MARKERS.forEach(m=>{
-  const x=ovX(m.pos);
-  if(x>=ML&&x<=ML+DRAW_W) placeSNPMarker(x,OV_Y,m,true);
-});
-ovOnlySites.forEach(site=>{
-  const flist=findings[site.id]||[];
-  const x=ovX(site.pos);
-  const g=el("g",{});
-  const topColor=flist.length?FC[flist[0].type]:"#94a3b8";
-  el("line",{x1:x,y1:OV_Y-9,x2:x,y2:OV_Y-26,stroke:topColor,"stroke-width":flist.length?1.8:1,opacity:0.75},g);
-  flist.forEach((f,ti)=>{
-    el("circle",{cx:x,cy:OV_Y-30-ti*11,r:5.5,fill:FC[f.type]||"#94a3b8",stroke:"#fff","stroke-width":1,opacity:0.93},g);
-  });
-  if(!flist.length) el("circle",{cx:x,cy:OV_Y-28,r:2.5,fill:"#94a3b8",opacity:0.5},g);
-  const dotTop=flist.length?OV_Y-30-(flist.length-1)*11-6:OV_Y-32;
-  const lEnd=dotTop-14;
-  if(flist.length) el("line",{x1:x,y1:dotTop,x2:x,y2:lEnd+2,stroke:"#94a3b8","stroke-width":0.8,"stroke-dasharray":"2,2",opacity:0.6},g);
-  txt(site.id,{x,y:lEnd,"text-anchor":"end",fill:flist.length?"#1e293b":"#94a3b8","font-size":flist.length?8.5:7,"font-weight":flist.length?"700":"400",transform:`rotate(-55,${x},${lEnd})`},g);
-  attachTT(g,buildCpGTooltip(site.id));
-  svg.appendChild(g);
-});
-
-/* ══ BRACKETS ════════════════════════════════════════════════════ */
-function drawBracket(xS,xE,pTop,pL,pR,color,label){
-  el("rect",{x:ovX(xS),y:OV_TOP,width:ovX(xE)-ovX(xS),height:OV_BOT-OV_TOP,fill:color,opacity:0.1,rx:2});
-  el("rect",{x:ovX(xS),y:OV_TOP,width:ovX(xE)-ovX(xS),height:OV_BOT-OV_TOP,fill:"none",stroke:color,"stroke-width":1.2,"stroke-dasharray":"5,3",rx:2});
-  const mx=ovX(xE)+10,my=OV_TOP+10;
-  el("circle",{cx:mx,cy:my,r:7,fill:"none",stroke:color,"stroke-width":1.5});
-  el("line",{x1:mx+5,y1:my+5,x2:mx+10,y2:my+10,stroke:color,"stroke-width":2});
-  txt(label,{x:mx+14,y:my+5,fill:color,"font-size":9,"font-weight":"bold"});
-  el("line",{x1:ovX(xS),y1:OV_BOT,x2:pL,y2:pTop,stroke:color,"stroke-width":1,"stroke-dasharray":"5,4",opacity:0.45});
-  el("line",{x1:ovX(xE),y1:OV_BOT,x2:pR,y2:pTop,stroke:color,"stroke-width":1,"stroke-dasharray":"5,4",opacity:0.45});
-}
-drawBracket(Z1_START,Z1_END,ZP1_TOP,ML,SVG_W-MR,"#fbbf24","Promoter (zoomed)");
-drawBracket(Z2_START,Z2_END,ZP2_TOP,ML,SVG_W-MR,"#a78bfa","3\u2032 region (zoomed)");
-
-/* ══ ZOOM PANEL HELPER ═══════════════════════════════════════════ */
-function drawZoomPanel(layout,panelTop,panelBot,geneY,cpgY,zStart,zEnd,zXfn,panelColor,panelLabel,coordStr,showPromoter){
-  const PW=DRAW_W;
-  el("rect",{x:ML,y:panelTop,width:PW,height:panelBot-panelTop,fill:"#f8fafc",opacity:0.55,rx:8});
-  el("rect",{x:ML,y:panelTop,width:PW,height:panelBot-panelTop,fill:"none",stroke:panelColor,"stroke-width":1.2,rx:8});
-  txt(panelLabel,{x:ML+10,y:panelTop+15,fill:panelColor,"font-size":10,"font-weight":"bold"});
-  txt(coordStr,{x:ML+10,y:panelTop+27,fill:"#94a3b8","font-size":8.5});
-  if(showPromoter){
-    const ci0=zXfn(cpgIsland[0]),ci1=zXfn(cpgIsland[1]);
-    el("rect",{x:ci0,y:geneY-38,width:ci1-ci0,height:16,fill:"#22c55e",opacity:0.55,rx:4});
-    txt("CpG Island",{x:(ci0+ci1)/2,y:geneY-25,"text-anchor":"middle",fill:"#166534","font-size":10,"font-weight":"bold"});
-    const px=zXfn(promPos);
-    el("polygon",{points:`${px},${geneY-60} ${px+14},${geneY-67} ${px+14},${geneY-53}`,fill:"#f97316"});
-    el("rect",{x:px-26,y:geneY-67,width:26,height:14,fill:"#f97316",rx:3});
-    txt("P",{x:px-13,y:geneY-57,"text-anchor":"middle",fill:"#fff","font-size":9,"font-weight":"bold"});
-    txt("KL_1 Promoter",{x:px+18,y:geneY-57,fill:"#f97316","font-size":10});
-    const tx=zXfn(tssPos);
-    el("line",{x1:tx,y1:geneY-50,x2:tx,y2:geneY-18,stroke:"#f59e0b","stroke-width":1.8,"stroke-dasharray":"4,2"});
-    txt("TSS",{x:tx,y:geneY-52,"text-anchor":"middle",fill:"#f59e0b","font-size":10});
-  }
-  const gL=ML+ZP_PAD,gR=ML+PW-ZP_PAD;
-  el("line",{x1:gL,y1:geneY,x2:gR,y2:geneY,stroke:"#93c5fd","stroke-width":3});
-  drawDirectionArrows(gL,gR,geneY,"#93c5fd",0.45);
-  draw5p3p(gL,gR,geneY,12);
-  exons.forEach(([s,e],i)=>{
-    const x0=Math.max(zXfn(s),gL),x1=Math.min(zXfn(e),gR);
-    if(x1<x0||e<zStart||s>zEnd)return;
-    el("rect",{x:x0,y:geneY-11,width:x1-x0,height:22,fill:i===0?"#f97316":"#3b82f6",rx:3,opacity:0.85});
-  });
-  el("line",{x1:gL,y1:geneY+22,x2:gR,y2:geneY+22,stroke:"#cbd5e1","stroke-width":1});
-  SNP_MARKERS.forEach(m=>{
-    const spx=zXfn(m.pos);
-    if(spx>=gL&&spx<=gR){
-      const sg=el("g",{});
-      const top=geneY-38-m.offset;
-      el("line",{x1:spx,y1:geneY-12,x2:spx,y2:top,stroke:"#f59e0b","stroke-width":1.8,"stroke-dasharray":"3,2"},sg);
-      drawDiamond(spx,top-8,8,"#f59e0b","#fff",sg);
-      txt(m.id,{x:spx,y:top-20,"text-anchor":"middle",fill:"#92400e","font-size":8,"font-weight":"bold"},sg);
-      attachTT(sg,m.tooltip);
-      svg.appendChild(sg);
-    }
-  });
-  layout.forEach(site=>{
-    const flist=findings[site.id]||[];
+// ── Draw CpG sites for a panel ───────────────────────────────────
+// sites: array of ALL_SITES entries within zone
+// uses evenly spaced display positions but real positions for gene connectors
+function drawCpGPanel(sites,xFn,geneY,cpgY,gL,gR){
+  if(!sites.length)return;
+  const n=sites.length;
+  const step=(DRAW_W-ZP_PAD*2)/(Math.max(n-1,1));
+  sites.forEach((site,i)=>{
+    const flist=FINDINGS[site.id]||[];
     const isAnn=flist.length>0;
-    const lx=site.displayX,rx=site.realX;
+    const lx = n===1 ? ML+DRAW_W/2 : ML+ZP_PAD+i*step;
+    const rx = Math.min(Math.max(xFn(site.pos),gL),gR);
+    const stemCol = isAnn ? (FC[flist[0].type]||"#94a3b8") : "#cbd5e1";
     const g=el("g",{});
-    el("line",{x1:rx,y1:geneY+14,x2:lx,y2:cpgY-40,stroke:isAnn?FC[flist[0].type]:"#cbd5e1","stroke-width":0.8,"stroke-dasharray":"2,2",opacity:0.4},g);
-    el("line",{x1:lx,y1:cpgY-36,x2:lx,y2:cpgY+12,stroke:isAnn?"#64748b":"#cbd5e1","stroke-width":isAnn?1.2:0.8,opacity:isAnn?1:0.5},g);
+
+    // connector: real gene position → display column
+    el("line",{x1:rx,y1:geneY+12,x2:lx,y2:cpgY-36,
+      stroke:stemCol,"stroke-width":0.7,"stroke-dasharray":"2,2",opacity:.35},g);
+    // vertical stem at display column
+    el("line",{x1:lx,y1:cpgY-32,x2:lx,y2:cpgY+8,
+      stroke:isAnn?"#64748b":"#cbd5e1","stroke-width":isAnn?1.2:.7,
+      opacity:isAnn?1:.5},g);
+    // finding dots (stacked) — meQTL gets larger circle with border
     flist.forEach((f,ti)=>{
-      el("circle",{cx:lx,cy:cpgY-42-ti*13,r:7,fill:FC[f.type]||"#94a3b8",stroke:"#fff","stroke-width":1.2,opacity:0.95},g);
+      const isMeqtl = f.type==="meqtl";
+      el("circle",{cx:lx,cy:cpgY-38-ti*13,
+        r: isMeqtl ? 10 : 7,
+        fill:FC[f.type],
+        stroke: isMeqtl ? "#92400e" : "#ffffff",
+        "stroke-width": isMeqtl ? 2 : 1,
+        opacity:.95},g);
     });
-    if(!isAnn) el("circle",{cx:lx,cy:cpgY-42,r:3.5,fill:"#cbd5e1",opacity:0.6},g);
-    const labelY=cpgY+28;
-    txt(site.id,{x:lx,y:labelY,"text-anchor":"end",fill:isAnn?"#1e293b":"#64748b","font-size":isAnn?9:8,"font-weight":isAnn?"700":"400",transform:`rotate(-55,${lx},${labelY})`},g);
-    attachTT(g,buildCpGTooltip(site.id));
+    if(!isAnn){
+      el("circle",{cx:lx,cy:cpgY-38,r:3.5,fill:"#cbd5e1",opacity:.8},g);
+    }
+    // label
+    const ly=cpgY+26;
+    txt(site.id,{x:lx,y:ly,"text-anchor":"end",
+      fill:isAnn?"#1e293b":"#94a3b8",
+      "font-size":isAnn?8.5:7.5,
+      "font-weight":isAnn?"700":"400",
+      transform:`rotate(-55,${lx},${ly})`},g);
+    attachTT(g, isAnn ? cpgTooltip(site.id) :
+      `<strong>${site.id}</strong><br><span style="color:#94a3b8">`+
+      `chr13:${site.pos.toLocaleString()} · ${site.region||"—"} · ${site.irel}</span>`);
     svg.appendChild(g);
   });
 }
 
-drawZoomPanel(z1Layout,ZP1_TOP,ZP1_BOT,ZP1_Y,ZP1_CY,Z1_START,Z1_END,zpX1,"#fbbf24",
-  "Promoter region (zoomed)",`chr13:${Z1_START.toLocaleString()}\u2013${Z1_END.toLocaleString()}`,true);
-drawZoomPanel(z2Layout,ZP2_TOP,ZP2_BOT,ZP2_Y,ZP2_CY,Z2_START,Z2_END,zpX2,"#a78bfa",
-  "3\u2032 dense region (zoomed)",`chr13:${Z2_START.toLocaleString()}\u2013${Z2_END.toLocaleString()}`,false);
+// ── OVERVIEW ─────────────────────────────────────────────────────
+const OV_L=ovX(GEN_START+200), OV_R=ovX(GEN_END-200);
+geneBackbone(OV_L,OV_R,OV_Y,2.5);
+strandLabels(OV_L,OV_R,OV_Y,11);
 
+// CpG island bar
+el("rect",{x:ovX(CPG_ISLAND[0]),y:OV_Y-24,
+  width:ovX(CPG_ISLAND[1])-ovX(CPG_ISLAND[0]),height:9,
+  fill:"#7c3aed",opacity:.75,rx:1});
+txt("CpG island",{x:ovX((CPG_ISLAND[0]+CPG_ISLAND[1])/2),y:OV_Y-27,
+  "text-anchor":"middle",fill:"#4c1d95","font-size":8});
+
+// Exons on overview
+drawExons(ovX,OV_Y,GEN_START,GEN_END,OV_L,OV_R);
+
+// Gene label
+txt("KL",{x:OV_L-12,y:OV_Y+4,"text-anchor":"end",
+  fill:"#2563eb","font-size":16,"font-weight":"bold","font-style":"italic"});
+
+// Tick marks every 5 kb
+for(let p=33580;p<=33655;p+=5){
+  const pp=p*1000; if(pp<GEN_START||pp>GEN_END)continue;
+  el("line",{x1:ovX(pp),y1:OV_Y+12,x2:ovX(pp),y2:OV_Y+18,stroke:"#cbd5e1","stroke-width":1});
+  txt((pp/1e6).toFixed(3)+"M",{x:ovX(pp),y:OV_Y+27,"text-anchor":"middle",
+    fill:"#94a3b8","font-size":7.5});
+}
+txt("chr13 (hg19) · + strand",{x:SVG_W/2,y:OV_Y+38,"text-anchor":"middle",
+  fill:"#94a3b8","font-size":9});
+
+// SNPs on overview
+SNP_MARKERS.forEach(m=>placeSNP(ovX,OV_Y,m,OV_L,OV_R));
+
+// CpG sites on overview (only those NOT in zoom zones)
+const inZ1=s=>s.pos>=Z1_S&&s.pos<=Z1_E;
+const inZ2=s=>s.pos>=Z2_S&&s.pos<=Z2_E;
+ALL_SITES.filter(s=>!inZ1(s)&&!inZ2(s)).forEach(site=>{
+  const flist=FINDINGS[site.id]||[];
+  const x=ovX(site.pos);
+  if(x<OV_L||x>OV_R)return;
+  const g=el("g",{});
+  const stemCol=flist.length?(FC[flist[0].type]||"#94a3b8"):"#cbd5e1";
+  el("line",{x1:x,y1:OV_Y-10,x2:x,y2:OV_Y-24,stroke:stemCol,"stroke-width":flist.length?1.5:.8,opacity:.7},g);
+  flist.forEach((f,ti)=>{
+    el("circle",{cx:x,cy:OV_Y-28-ti*10,r:5,fill:FC[f.type],stroke:"#fff","stroke-width":.8,opacity:.95},g);
+  });
+  if(!flist.length) el("circle",{cx:x,cy:OV_Y-26,r:2.5,fill:"#cbd5e1",opacity:.7},g);
+  const dotTop=flist.length?OV_Y-28-(flist.length-1)*10-6:OV_Y-29;
+  const lEnd=dotTop-13;
+  if(flist.length) el("line",{x1:x,y1:dotTop,x2:x,y2:lEnd+2,stroke:"#cbd5e1","stroke-width":.7,"stroke-dasharray":"2,2",opacity:.5},g);
+  txt(site.id,{x,y:lEnd,"text-anchor":"end",
+    fill:flist.length?"#1e293b":"#94a3b8",
+    "font-size":flist.length?8:6.5,"font-weight":flist.length?"700":"400",
+    transform:`rotate(-55,${x},${lEnd})`},g);
+  attachTT(g, flist.length ? cpgTooltip(site.id) :
+    `<strong>${site.id}</strong><br><span style="color:#94a3b8">`+
+    `chr13:${site.pos.toLocaleString()} · ${site.region||"—"} · ${site.irel}</span>`);
+  svg.appendChild(g);
+});
+
+// ── ZOOM BRACKETS ────────────────────────────────────────────────
+function bracket(xS,xE,pTop,pL,pR,color,label){
+  el("rect",{x:ovX(xS),y:8,width:ovX(xE)-ovX(xS),height:OV_Y+50,
+    fill:color,opacity:.05,rx:2});
+  el("rect",{x:ovX(xS),y:8,width:ovX(xE)-ovX(xS),height:OV_Y+50,
+    fill:"none",stroke:color,"stroke-width":.9,"stroke-dasharray":"5,3",rx:2});
+  txt(label,{x:ovX(xS)+4,y:20,fill:color,"font-size":8.5,"font-weight":"bold"});
+  el("line",{x1:ovX(xS),y1:OV_Y+58,x2:pL,y2:pTop,stroke:color,"stroke-width":.8,"stroke-dasharray":"4,4",opacity:.4});
+  el("line",{x1:ovX(xE),y1:OV_Y+58,x2:pR,y2:pTop,stroke:color,"stroke-width":.8,"stroke-dasharray":"4,4",opacity:.4});
+}
+bracket(Z1_S,Z1_E,ZP1_TOP,ML,SVG_W-MR,"#f59e0b","5′ region (zoomed)");
+bracket(Z2_S,Z2_E,ZP2_TOP,ML,SVG_W-MR,"#a78bfa","3′ region (zoomed)");
+
+// ── ZOOM PANEL HELPER ────────────────────────────────────────────
+function panelBg(top,bot,color,fillColor,fillOpacity,label,coordStr){
+  el("rect",{x:ML,y:top,width:DRAW_W,height:bot-top,fill:fillColor,opacity:fillOpacity,rx:6});
+  el("rect",{x:ML,y:top,width:DRAW_W,height:bot-top,fill:"none",
+    stroke:color,"stroke-width":.8,rx:6,"stroke-dasharray":"4,3"});
+  txt(label,{x:ML+12,y:top+16,fill:color,"font-size":10,"font-weight":"bold","font-style":"italic"});
+  txt(coordStr,{x:ML+12,y:top+29,fill:"#94a3b8","font-size":8.5});
+}
+
+// ══ ZOOM PANEL 1 — 5′ region ═══════════════════════════════════════
+panelBg(ZP1_TOP,ZP1_BOT,"#f59e0b","#f59e0b",.05,
+  "5′ region — Promoter · CpG island · Exons 1–2",
+  `chr13:${Z1_S.toLocaleString()}–${Z1_E.toLocaleString()}`);
+
+{
+  const gL=ML+ZP_PAD, gR=ML+DRAW_W-ZP_PAD;
+
+  // ── Vertical layers (top → bottom relative to ZP1_GY) ──
+  // -148  Promoter bar (top)
+  // -126  Promoter bar (bottom)
+  // -116  CpG island bar (top)
+  //  -94  CpG island bar (bottom)
+  //  -84  TSS line start
+  //  -50  rs1207568 diamond
+  //    0  Gene line
+  //  +18  Island-relation bar
+  //  +28  Separator
+
+  // ── Promoter bar — dark green, min 220px wide ──
+  const px0raw=z1X(PROM[0]), px1raw=z1X(PROM[1]);
+  const promCx=(px0raw+px1raw)/2;
+  const promW=Math.max(px1raw-px0raw, 220);
+  const px0=Math.max(promCx-promW/2, gL);
+  const px1=Math.min(promCx+promW/2, gR);
+  el("rect",{x:px0,y:ZP1_GY-148,width:px1-px0,height:22,
+    fill:"#14532d",opacity:.15,rx:3});
+  el("rect",{x:px0,y:ZP1_GY-148,width:px1-px0,height:22,
+    fill:"none",stroke:"#15803d","stroke-width":1.8,rx:3});
+  txt("Promoter (~500 bp)",{x:(px0+px1)/2,y:ZP1_GY-132,"text-anchor":"middle",
+    fill:"#14532d","font-size":10,"font-weight":"bold"});
+  el("line",{x1:px0raw,y1:ZP1_GY-126,x2:px0raw,y2:ZP1_GY-12,
+    stroke:"#15803d","stroke-width":1,"stroke-dasharray":"3,2",opacity:.5});
+  el("line",{x1:px1raw,y1:ZP1_GY-126,x2:px1raw,y2:ZP1_GY-12,
+    stroke:"#15803d","stroke-width":1,"stroke-dasharray":"3,2",opacity:.5});
+
+  // ── CpG island bar — violet, min 320px wide ──
+  const ci0raw=z1X(CPG_ISLAND[0]), ci1raw=z1X(CPG_ISLAND[1]);
+  const ciCx=(ci0raw+ci1raw)/2;
+  const ciW=Math.max(ci1raw-ci0raw, 320);
+  const ci0=Math.max(ciCx-ciW/2, gL);
+  const ci1=Math.min(ciCx+ciW/2, gR);
+  el("rect",{x:ci0,y:ZP1_GY-116,width:ci1-ci0,height:22,
+    fill:"#ede9fe",rx:3,opacity:.9});
+  el("rect",{x:ci0,y:ZP1_GY-116,width:ci1-ci0,height:22,
+    fill:"none",stroke:"#7c3aed","stroke-width":1.5,rx:3});
+  txt(`CpG island · ${CPG_ISLAND[0].toLocaleString()}–${CPG_ISLAND[1].toLocaleString()}`,
+    {x:(ci0+ci1)/2,y:ZP1_GY-100,"text-anchor":"middle",
+     fill:"#4c1d95","font-size":9,"font-weight":"bold"});
+
+  // ── TSS dashed line + label ──
+  const tx=z1X(TSS);
+  if(tx>=gL&&tx<=gR){
+    el("line",{x1:tx,y1:ZP1_GY-94,x2:tx,y2:ZP1_GY-12,
+      stroke:"#f59e0b","stroke-width":1.8,"stroke-dasharray":"4,2"});
+    txt("TSS",{x:tx+5,y:ZP1_GY-80,"text-anchor":"start",
+      fill:"#b45309","font-size":10,"font-weight":"bold"});
+  }
+
+  // ── Gene backbone + exons ──
+  geneBackbone(gL,gR,ZP1_GY,3);
+  strandLabels(gL,gR,ZP1_GY,12);
+  drawExons(z1X,ZP1_GY,Z1_S,Z1_E,gL,gR);
+
+  // ── SNPs: rs1207568 sits below TSS line, above gene ──
+  SNP_MARKERS.forEach(m=>{
+    if(m.id==="rs1207568"){
+      const x=z1X(m.pos);
+      if(x<gL||x>gR)return;
+      const g=el("g",{});
+      el("line",{x1:x,y1:ZP1_GY-50,x2:x,y2:ZP1_GY-12,
+        stroke:"#f59e0b","stroke-width":1.8,"stroke-dasharray":"3,2"},g);
+      el("polygon",{
+        points:`${x},${ZP1_GY-58} ${x+7},${ZP1_GY-50} ${x},${ZP1_GY-42} ${x-7},${ZP1_GY-50}`,
+        fill:"#f59e0b",stroke:"#ffffff","stroke-width":1},g);
+      txt(m.id,{x:x,y:ZP1_GY-63,"text-anchor":"middle",
+        fill:"#b45309","font-size":9,"font-weight":"bold"},g);
+      attachTT(g,m.tooltip);
+      svg.appendChild(g);
+    } else {
+      placeSNP(z1X,ZP1_GY,m,gL,gR);
+    }
+  });
+
+  // ── Island-relation colour bar below gene ──
+  const irelBands=[
+    {label:"N_Shore",  s:33589200,      e:33589929,      col:"#c4b5fd"},
+    {label:"Island",   s:CPG_ISLAND[0], e:CPG_ISLAND[1], col:"#7c3aed"},
+    {label:"S_Shore",  s:33591428,      e:33593000,      col:"#fbbf24"},
+    {label:"S_Shelf",  s:33593000,      e:33595500,      col:"#fde68a"},
+  ];
+  const barY=ZP1_GY+18;
+  irelBands.forEach(b=>{
+    const bx0=Math.max(z1X(b.s),gL), bx1=Math.min(z1X(b.e),gR);
+    if(bx1<=bx0)return;
+    el("rect",{x:bx0,y:barY,width:bx1-bx0,height:7,fill:b.col,opacity:.55,rx:1});
+    if(bx1-bx0>30) txt(b.label,{x:(bx0+bx1)/2,y:barY+15,"text-anchor":"middle",
+      fill:"#64748b","font-size":7.5});
+  });
+
+  // Separator
+  el("line",{x1:gL,y1:ZP1_GY+28,x2:gR,y2:ZP1_GY+28,stroke:"#e2e8f0","stroke-width":.8});
+
+  // CpG sites
+  const z1sites=ALL_SITES.filter(s=>s.pos>=Z1_S&&s.pos<=Z1_E);
+  drawCpGPanel(z1sites,z1X,ZP1_GY,ZP1_CY,gL,gR);
+}
+
+// ══ ZOOM PANEL 2 — 3′ region ═══════════════════════════════════════
+panelBg(ZP2_TOP,ZP2_BOT,"#a78bfa","#a78bfa",.05,
+  "3′ region — Exons 3–7 · KL-VS · 3′ UTR · downstream sites",
+  `chr13:${Z2_S.toLocaleString()}–${Z2_E.toLocaleString()}`);
+
+{
+  const gL=ML+ZP_PAD, gR=ML+DRAW_W-ZP_PAD;
+  geneBackbone(gL,gR,ZP2_GY,3);
+  strandLabels(gL,gR,ZP2_GY,12);
+  drawExons(z2X,ZP2_GY,Z2_S,Z2_E,gL,gR);
+
+  // KL-VS bracket on exon 3
+  const kvL=z2X(33628100), kvR=z2X(33628220);
+  if(kvR>kvL&&kvL>=gL&&kvR<=gR){
+    el("rect",{x:kvL,y:ZP2_GY-11,width:kvR-kvL,height:22,
+      fill:"#fffbeb",opacity:.85,rx:2});
+    el("rect",{x:kvL,y:ZP2_GY-11,width:kvR-kvL,height:22,
+      fill:"none",stroke:"#f59e0b","stroke-width":1,rx:2});
+    txt("KL-VS",{x:(kvL+kvR)/2,y:ZP2_GY+32,"text-anchor":"middle",
+      fill:"#b45309","font-size":8.5,"font-style":"italic"});
+  }
+
+  // poly-A label near end of E7
+  const paX=z2X(33640200);
+  if(paX>=gL&&paX<=gR){
+    el("line",{x1:paX,y1:ZP2_GY-12,x2:paX,y2:ZP2_GY-28,
+      stroke:"#94a3b8","stroke-width":1});
+    txt("poly-A",{x:paX,y:ZP2_GY-32,"text-anchor":"middle",
+      fill:"#94a3b8","font-size":8});
+  }
+
+  // SNPs
+  SNP_MARKERS.forEach(m=>placeSNP(z2X,ZP2_GY,m,gL,gR));
+
+  // Separator
+  el("line",{x1:gL,y1:ZP2_GY+28,x2:gR,y2:ZP2_GY+28,stroke:"#e2e8f0","stroke-width":.8});
+
+  // CpG sites
+  const z2sites=ALL_SITES.filter(s=>s.pos>=Z2_S&&s.pos<=Z2_E);
+  drawCpGPanel(z2sites,z2X,ZP2_GY,ZP2_CY,gL,gR);
+}
+
+// ── SVG download ─────────────────────────────────────────────────
 function saveSVG(){
   const clone=svg.cloneNode(true);
   clone.setAttribute("xmlns","http://www.w3.org/2000/svg");
-  const s=document.createElementNS(NS,"style");s.textContent="text{font-family:sans-serif;}";
+  const s=document.createElementNS(NS,"style");
+  s.textContent="text{font-family:'Courier New',monospace;}";
   clone.insertBefore(s,clone.firstChild);
-  const blob=new Blob(['<?xml version="1.0" encoding="UTF-8"?>\n'+clone.outerHTML],{type:"image/svg+xml"});
+  const blob=new Blob(
+    ['<?xml version="1.0" encoding="UTF-8"?>\n'+clone.outerHTML],
+    {type:"image/svg+xml"});
   const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);a.download="KL_gene_CpG_hg19_final.svg";a.click();
+  a.href=URL.createObjectURL(blob);
+  a.download="KL_hg19_verified.svg";
+  a.click();
 }
 </script>
 </body>
